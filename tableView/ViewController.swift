@@ -26,21 +26,43 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     //how many sections are in the view
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     //table view will return int for how many rows
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return people.count
+        
+        if section == 0{
+            return people.count
+        }else{
+            return videos.count
+        }
+        
     }
     
     //what is in the table
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        var (personName, personLocation) = people[indexPath.row]
-        cell.textLabel?.text = personName
+        if indexPath.section == 0{
+            var (personName, personLocation) = people[indexPath.row]
+            cell.textLabel?.text = personName
+        }else{
+            var (videoTitle, videoDesc) = videos[indexPath.row]
+            cell.textLabel?.text = videoTitle
+        }
         return cell
     }
+    
+    //Give each section a name
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "People"
+        }else{
+            return "Videos"
+        }
+
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
